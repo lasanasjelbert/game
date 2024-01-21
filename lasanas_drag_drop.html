@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-1eocQ59vwVpMbuEHSzDDeM5vLpIKJPtP5WSg19zf0qI=" crossorigin="anonymous" />
+
+    <title>Parts of the Body Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fac3a5;
+            color: #333;
+
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .draggableContainer,
+        .droppableContainer {
+            display: ruby-base-container;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-around;
+            align-items: center;
+            margin-right: 300px;
+        }
+
+        .box,
+        .droppable {
+            background-color: #5b484a;
+            height: 30px;
+            width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            position: relative;
+            z-index: 2;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffff;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            border: 2px solid white;
+
+        }
+
+        .draggableContainer{
+            margin-left: 2px;
+
+        }
+
+        .box:hover,
+        .droppable:hover {
+            background-color: rgb(236, 221, 192);
+        }
+
+        .droppable {
+            background-color: rgb(219, 191, 131);
+            padding: 5px;
+        }
+
+        .draggableFormat {
+            font-weight: bold;
+            color: #5b484a;
+            border: 5px solid white;
+            transition: transform 0.3s ease; 
+        }
+
+        
+
+        #scoreSection {
+    z-index: 1;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    background-color: #80732a;
+    padding: 20px;
+    font-weight: bolder;
+    border: 2px solid white;
+    border-radius: 10px;
+    text-transform: uppercase;
+    display: flex; /* Added flex display for centering */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2); /* Added box shadow */
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+
+}
+
+#scoreSection:hover {
+    background-color: #6c6923; /* Darker background color on hover */
+}
+
+        #remarksDiv {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e0c48f;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bolder;
+    border: 2px solid black;
+    align-items: center;
+    display: flex; /* Added flex display for centering */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    width: 120px;
+}
+
+        img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+    border: 3px solid #5b484a; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    border-radius: 15px; 
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+img:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1) rotate(5deg); 
+}
+
+img:active {
+    transform: scale(0.9); 
+}
+
+img::before {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.box{
+    padding: 15px;
+    margin-left :70px ;
+}
+
+.droppableContainer{
+    display: flex;
+
+}
+h1 {
+            font-size: 2em;
+            color: #fac3a5; 
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: #5b484a;
+            padding: 15px;
+            border: 4px solid white;
+            border-radius: 18px;
+            font-size: 45px;
+            -webkit-text-stroke: 2px  #000;
+            margin-top: 40px;
+        }
+
+</style>
+</head>
+
+<body>
+
+    <h1> OrganMatch Challenge </h1>
+    <div class="container">
+        <div class="draggableContainer">
+            <div class="box" draggable="true" id="drag1">eyes</div>
+            <div class="box" draggable="true" id="drag2">Nose</div>
+            <div class="box" draggable="true" id="drag3">Lips</div>
+            <div class="box" draggable="true" id="drag4">Ears</div>
+            <div class="box" draggable="true" id="drag5">Hands</div>
+            <div class="box" draggable="true" id="drag5">Feet</div>
+            <div class="box" draggable="true" id="drag6">Legs</div>
+            <div class="box" draggable="true" id="drag7">Hair</div>
+            <div class="box" draggable="true" id="drag8">Tooth</div>
+            <div class="box" draggable="true" id="drag9">Elbow</div>
+        </div>
+
+    <div class="droppableContainer">
+        <div class="image1"><img src="https://www.pngitem.com/pimgs/m/38-385957_human-eye-eyes-clipart-png-download-cartoon-eye.png" alt="">
+        <div class="droppable" id="drop1" data-draggable-id="drop1"></div>
+    </div>
+
+    <div class="image1"><img src="https://img.freepik.com/premium-vector/human-nose-colorful-line-art-isolated-vector-illustration_34480-643.jpg" alt="">
+        <div class="droppable" id="drop2" data-draggable-id="drop2"></div>
+    </div>
+
+    <div class="image1"><img src="https://t4.ftcdn.net/jpg/02/50/50/27/360_F_250502749_AC4ttnLsKQuHt7uOdqGxaMg1wLtizOrz.jpg" alt="">
+        <div class="droppable" id="drop3" data-draggable-id="drop3"></div>
+    </div>
+    <div class="image1"><img src="https://t4.ftcdn.net/jpg/02/18/96/33/360_F_218963301_G23swMwicGyTNqFnR1dqnhb96HPskm5r.jpg" alt="">
+        <div class="droppable" id="drop4" data-draggable-id="drop4"></div>
+    </div>
+
+    <div class="image1"><img src="https://t4.ftcdn.net/jpg/01/51/54/43/360_F_151544328_AZ672761YjvhpEZaV46pdBwCg2usEvNE.jpg" alt="">
+
+        <div class="droppable" id="drop5" data-draggable-id="drop5"></div>
+    </div>
+
+    <div class="image1"><img src="https://www.shutterstock.com/image-vector/illustration-body-part-plant-sole-260nw-1179340963.jpg" alt="">
+        <div class="droppable" id="drop5" data-draggable-id="drop5"></div>
+    </div>
+
+    <div class="image1"><img src="https://previews.123rf.com/images/creativejenn/creativejenn1803/creativejenn180300007/97613603-female-legs-barefoot-side-view-vector-illustration-hand-drawn-cartoon-style-isolated-on-white.jpg" alt="">
+
+        <div class="droppable" id="drop5" data-draggable-id="drop5"></div>
+    </div>
+
+    <div class="image1"><img src="https://thumbs.dreamstime.com/b/vector-woman-hairstyle-back-view-design-beautiful-female-portrait-beautiful-straight-smooth-hair-styling-78287513.jpg" alt="">
+
+        <div class="droppable" id="drop5" data-draggable-id="drop5"></div>
+    </div>
+    <div class="image1"><img src="https://t4.ftcdn.net/jpg/01/40/37/27/360_F_140372778_t5pCMkpioaa3MDXvXy17S9yq1pdGI6V2.jpg" alt="">
+
+        <div class="droppable" id="drop5" data-draggable-id="drop5"></div>
+    </div>
+
+    <div class="image1"><img src="https://media.istockphoto.com/id/1359278660/vector/color-vector-illustration-of-childrens-activity-coloring-book-pages-with-pictures-of-orange.jpg?s=612x612&w=0&k=20&c=N0caRbS4wRmDTutls-w8PGEx0M21of_NcPw4HGfWEkg=" alt="">
+
+        <div class="droppable" id="drop5" data-draggable-id="drop5"></div>
+    </div>
+    </div>
+</div>
+<div id="remarksDiv"></div>
+<div id="scoreSection">Score: <span id="scoreValue">0</span></div>
+
+
+        
+  
+    <script>
+        const draggableElement = document.querySelectorAll('.box');
+        const droppableElement = document.querySelectorAll('.droppable');
+        const remarksDiv = document.getElementById('remarksDiv');
+        let score = 0;
+
+        draggableElement.forEach(element => {
+            element.addEventListener('dragstart', (drgStrt) => {
+                drgStrt.dataTransfer.setData('text', drgStrt.target.id);
+                drgStrt.currentTarget.classList.add('draggableFormat');
+            });
+
+            element.addEventListener('dragend', (drgendEvt) => {
+                drgendEvt.currentTarget.classList.remove('draggableFormat');
+            });
+        });
+
+        droppableElement.forEach(element => {
+            element.addEventListener('dragover', (dragOver) => {
+                dragOver.preventDefault();
+            });
+
+            element.addEventListener('drop', (dropEvt) => {
+                dropEvt.preventDefault();
+                const droppedElementId = dropEvt.dataTransfer.getData('text');
+                const dropZoneId = dropEvt.target.getAttribute('data-draggable-id');
+                const droppedElement = document.getElementById(droppedElementId);
+
+                dropEvt.target.appendChild(droppedElement);
+
+                if (dropZoneId === droppedElementId.replace('drag', 'drop')) {
+                    score++;
+                    remarksDiv.innerText = 'Correct';
+                    scoreSection.innerText = `Score: ${score}`;
+                } else {
+                    remarksDiv.innerText = 'Incorrect';
+                }
+                
+            });
+        });
+    </script>
+</body>
+</html>
